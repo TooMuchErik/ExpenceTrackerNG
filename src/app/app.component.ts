@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TabsComponent } from './tabs/tabs.component';
+import { DailyExpensesComponent } from './daily-expenses/daily-expenses.component';
+import { SummaryComponent } from './summary/summary.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [TabsComponent, DailyExpensesComponent, SummaryComponent, CommonModule],
 })
 export class AppComponent {
-  title = 'expense-tracker-angular';
+  currentTab = 'Sunday';
+
+  onTabChange(tab: string) {
+    this.currentTab = tab;
+  }
 }

@@ -1,0 +1,18 @@
+<div>
+    <h2>{{ currentDay }} Expenses</h2>
+    <div class="expense-form">
+      <select [(ngModel)]="category">
+        <option value="" disabled selected>Select Category</option>
+        <option *ngFor="let cat of categories">{{ cat }}</option>
+      </select>
+      <input type="number" [(ngModel)]="amount" placeholder="Amount" />
+      <button (click)="addExpense()">Add Expense</button>
+    </div>
+    <ul>
+      <li *ngFor="let expense of expenses; index as i">
+        {{ expense.category }}: ${{ expense.amount.toFixed(2) }}
+        <button (click)="deleteExpense(i)">Delete</button>
+      </li>
+    </ul>
+  </div>
+  
