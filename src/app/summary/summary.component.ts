@@ -7,7 +7,7 @@ import { ExpenseService } from '../services/expense.service';
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective],
+  imports: [BaseChartDirective, CommonModule],
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
 })

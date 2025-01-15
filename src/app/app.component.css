@@ -3,4 +3,9 @@ main {
     flex: 1;
     overflow-y: auto;
   }
-  
+  header {
+    background: #326b34;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}

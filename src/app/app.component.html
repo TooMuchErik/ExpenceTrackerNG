@@ -1,3 +1,6 @@
+<header>
+  <h1>Weekly Expense Tracker</h1>
+</header>
 <app-tabs (tabChange)="onTabChange($event)"></app-tabs>
 <main>
   <app-daily-expenses *ngIf="currentTab !== 'Summary'" [currentDay]="currentTab"></app-daily-expenses>

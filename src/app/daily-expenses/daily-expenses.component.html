@@ -10,7 +10,7 @@
     </div>
     <ul>
       <li *ngFor="let expense of expenses; index as i">
-        {{ expense.category }}: ${{ expense.amount.toFixed(2) }}
+        {{ expense.category }}: RON{{ expense.amount.toFixed(2) }}
         <button (click)="deleteExpense(i)">Delete</button>
       </li>
     </ul>
