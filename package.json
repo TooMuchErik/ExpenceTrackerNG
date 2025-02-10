@@ -2,7 +2,9 @@
   "dependencies": {
     "@angular/forms": "^19.1.0",
     "chart.js": "^4.4.7",
-    "ng2-charts": "^8.0.0"
+    "echarts": "^5.6.0",
+    "ng2-charts": "^8.0.0",
+    "ngx-echarts": "^19.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.7"

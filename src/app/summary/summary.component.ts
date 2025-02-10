@@ -1,24 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { CommonModule } from '@angular/common';
-import { ChartConfiguration, ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import { ExpenseService } from '../services/expense.service';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [BaseChartDirective, CommonModule],
+  imports: [NgxEchartsModule, CommonModule],  //  Adaugă NgxEchartsModule
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
 })
 export class SummaryComponent implements OnInit {
-  pieChartData!: ChartConfiguration<'pie'>['data'];
-  pieChartOptions: ChartOptions<'pie'> = {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' },
-    },
-  };
+  pieChartOptions: any;
 
   constructor(private expenseService: ExpenseService) {}
 
@@ -28,14 +21,45 @@ export class SummaryComponent implements OnInit {
 
   updateChart() {
     const categoryTotals = this.expenseService.getCategoryTotals();
-    this.pieChartData = {
-      labels: Object.keys(categoryTotals),
-      datasets: [
+    console.log("Category Totals:", categoryTotals);
+
+    if (!categoryTotals || Object.keys(categoryTotals).length === 0) {
+      console.warn("Nu sunt date pentru grafic!");
+      return;
+    }
+
+    this.pieChartOptions = {
+      title: {
+        text: 'Expense Summary',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
         {
-          data: Object.values(categoryTotals),
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-        },
-      ],
+          name: 'Expenses',
+          type: 'pie',
+          radius: '50%',
+          data: Object.keys(categoryTotals).map(category => ({
+            name: category,
+            value: categoryTotals[category]
+          })),
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
     };
+
+    console.log("Pie Chart Options:", this.pieChartOptions);
   }
 }
