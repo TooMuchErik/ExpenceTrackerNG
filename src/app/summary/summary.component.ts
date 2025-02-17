@@ -1,19 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NGX_ECHARTS_CONFIG, NgxEchartsModule } from 'ngx-echarts';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [NgxEchartsModule, CommonModule],  //  Adaugă NgxEchartsModule
+  imports: [CommonModule, FormsModule, NgxEchartsModule],
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
+  providers: [
+    {
+      provide: NGX_ECHARTS_CONFIG,
+      useValue: {
+        echarts: () => import('echarts')
+      }
+    }
+  ]
 })
+
 export class SummaryComponent implements OnInit {
   pieChartOptions: any;
 
-  constructor(private expenseService: ExpenseService) {}
+  constructor(private expenseService: ExpenseService) { }
 
   ngOnInit() {
     this.updateChart();
@@ -21,8 +31,6 @@ export class SummaryComponent implements OnInit {
 
   updateChart() {
     const categoryTotals = this.expenseService.getCategoryTotals();
-    console.log("Category Totals:", categoryTotals);
-
     if (!categoryTotals || Object.keys(categoryTotals).length === 0) {
       console.warn("Nu sunt date pentru grafic!");
       return;
@@ -59,7 +67,5 @@ export class SummaryComponent implements OnInit {
         }
       ]
     };
-
-    console.log("Pie Chart Options:", this.pieChartOptions);
   }
 }

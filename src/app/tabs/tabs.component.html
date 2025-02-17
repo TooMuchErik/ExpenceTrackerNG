@@ -1,11 +1,9 @@
 <nav class="tabs">
-    <button
-      *ngFor="let tab of days"
-      class="tab"
-      [class.active]="tab === activeTab"
-      (click)="selectTab(tab)"
-    >
-      {{ tab }}
-    </button>
-  </nav>
-  
+  <button
+    *ngFor="let tab of days"
+    class="tab"
+    [class.active]="tab === activeTab"
+    (click)="selectTab(tab)">
+    {{ tab }}
+  </button>
+</nav>

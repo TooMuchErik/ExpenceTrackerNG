@@ -4,15 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ExpenseService {
-  private expenses: Record<string, { category: string; amount: number }[]> = {
-    Sunday: [],
-    Monday: [],
-    Tuesday: [],
-    Wednesday: [],
-    Thursday: [],
-    Friday: [],
-    Saturday: [],
-  };
 
   getExpenses(day: string) {
     return this.expenses[day];
@@ -24,6 +15,13 @@ export class ExpenseService {
 
   deleteExpense(day: string, index: number) {
     this.expenses[day].splice(index, 1);
+  }
+
+  updateExpense(day: string, index: number, updatedExpense: { category: string; amount: number }) {
+    const expenses = this.getExpenses(day);
+    if (expenses && expenses[index]) {
+      expenses[index] = updatedExpense;
+    }
   }
 
   getWeeklySummary() {
@@ -42,4 +40,14 @@ export class ExpenseService {
     });
     return totals;
   }
+
+  private expenses: Record<string, { category: string; amount: number }[]> = {
+    Sunday: [],
+    Monday: [],
+    Tuesday: [],
+    Wednesday: [],
+    Thursday: [],
+    Friday: [],
+    Saturday: [],
+  };
 }

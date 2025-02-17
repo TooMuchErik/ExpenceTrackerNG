@@ -3,6 +3,7 @@
 </header>
 <app-tabs (tabChange)="onTabChange($event)"></app-tabs>
 <main>
-  <app-daily-expenses *ngIf="currentTab !== 'Summary'" [currentDay]="currentTab"></app-daily-expenses>
+  <app-daily-expenses *ngIf="currentTab !== 'Summary'"
+    [currentDay]="currentTab"></app-daily-expenses>
   <app-summary *ngIf="currentTab === 'Summary'"></app-summary>
 </main>

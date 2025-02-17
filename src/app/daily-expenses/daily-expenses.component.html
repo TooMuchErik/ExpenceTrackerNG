@@ -1,18 +1,43 @@
 <div>
-    <h2>{{ currentDay }} Expenses</h2>
-    <div class="expense-form">
-      <select [(ngModel)]="category">
-        <option value="" disabled selected>Select Category</option>
-        <option *ngFor="let cat of categories">{{ cat }}</option>
-      </select>
-      <input type="number" [(ngModel)]="amount" placeholder="Amount" />
-      <button (click)="addExpense()">Add Expense</button>
-    </div>
-    <ul>
-      <li *ngFor="let expense of expenses; index as i">
-        {{ expense.category }}: RON{{ expense.amount.toFixed(2) }}
-        <button (click)="deleteExpense(i)">Delete</button>
-      </li>
-    </ul>
+  <h2>{{ currentDay }} Expenses</h2>
+
+  <div class="expense-form">
+    <select [(ngModel)]="category">
+      <option value disabled selected>Select Category</option>
+      <option *ngFor="let cat of categories">{{ cat }}</option>
+    </select>
+    <input type="number" [(ngModel)]="amount" placeholder="Amount" />
+    <button (click)="addExpense()">Add Expense</button>
   </div>
-  
+
+  <ul>
+    <li *ngFor="let expense of expenses; index as i">
+      <div *ngIf="editingIndex === i" class="edit-mode">
+        <select [(ngModel)]="editedCategory">
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat
+            }}</option>
+        </select>
+        <input type="number" [(ngModel)]="editedAmount" />
+        <button (click)="saveExpense(i)">💾 Save</button>
+        <button (click)="cancelEditing()">❌ Cancel</button>
+      </div>
+
+      <div *ngIf="editingIndex !== i" class="display-mode">
+        <span class="expense-text">{{ expense.category }}: RON{{
+          expense.amount.toFixed(2) }}</span>
+
+        <div class="icon-container">
+          <i class="fa fa-edit edit-icon" (click)="startEditing(i)"
+            title="Edit"></i>
+
+          <i class="fa fa-trash delete-icon" (click)="deleteExpense(i)"
+            title="Delete"></i>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="total-counter">
+    Total Spent: <strong>RON {{ getTotalAmount().toFixed(2) }}</strong>
+  </div>
+</div>
