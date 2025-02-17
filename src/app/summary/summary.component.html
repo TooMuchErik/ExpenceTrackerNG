@@ -1,4 +1,22 @@
-<div>
-  <h2>Summary</h2>
-  <div echarts [options]="pieChartOptions" class="chart-container"></div>
+<div class="summary-container">
+  <div class="total-chart">
+    <div class="chart-wrapper">
+      <div echarts [options]="totalChart.options"
+        class="chart-container total"></div>
+    </div>
+    <div class="chart-total fixed-total">
+      <strong>Total Weekly Expenses:</strong> RON {{ totalChart.total.toFixed(2)
+      }}
+    </div>
+  </div>
+
+  <div class="daily-charts">
+    <div class="day-chart" *ngFor="let chart of dailyCharts">
+      <h3>{{ chart.day }}</h3>
+      <div echarts [options]="chart.options" class="chart-container day"></div>
+      <div class="chart-total">
+        <strong>Total:</strong> RON {{ chart.total.toFixed(2) }}
+      </div>
+    </div>
+  </div>
 </div>
